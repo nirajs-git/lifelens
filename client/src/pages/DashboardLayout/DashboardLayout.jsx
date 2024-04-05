@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import { FaCircleUser } from "react-icons/fa6";
 import axios from "axios";
 import Dashboard from "../../components/Dashboard/Dashboard";
+import Patients from "../../components/Patients/Patients";
 
 const DashboardLayout = ({ setAuthenticated }) => {
   const apiKey = import.meta.env.VITE_API_URL;
@@ -67,7 +68,7 @@ const DashboardLayout = ({ setAuthenticated }) => {
         >
           <Routes>
             <Route path="" element={<Dashboard />} />
-            <Route path="/manage-patients" element={<>Hello</>} />
+            <Route path="/manage-patients" element={<Patients />} />
           </Routes>
         </div>
       </div>

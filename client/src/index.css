@@ -11,3 +11,19 @@
 .btn-transition{
   transition: .3s all ease-in;
 }
+
+thead {
+  @apply bg-primary text-white font-opensans;
+}
+
+thead th {
+  @apply text-white p-5;
+}
+
+tbody td {
+  @apply p-5 font-mulish text-dark;
+}
+
+tbody tr:nth-child(even) {
+  @apply bg-info;
+}
