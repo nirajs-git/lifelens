@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import {
+  Outlet,
+  Navigate,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import Home from "./pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
@@ -18,36 +24,31 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: authenticated ? <Navigate to="/dashboard" /> : (
+      element: authenticated ? (
+        <Navigate to="/dashboard" />
+      ) : (
         <>
           <Navbar />
-          <Home />
+          <Outlet />
           <Footer />
         </>
       ),
-    },
-    {
-      path: "sign-in",
-      element: (
-        <>
-          <Navbar />
-          <SignIn />
-          <Footer />
-        </>
-      ),
-    },
-    {
-      path: "sign-up",
-      element: (
-        <>
-          <Navbar />
-          <SignUp />
-          <Footer />
-        </>
-      ),
+      children: [
+        { index: true, element: <Home /> },
+        { path: "sign-in", element: <SignIn setAuthenticated={setAuthenticated} /> },
+        { path: "sign-up", element: <SignUp /> },
+      ],
     },
     {
       path: "/dashboard/*",
+      element: authenticated ? (
+        <DashboardLayout setAuthenticated={setAuthenticated} />
+      ) : (
+        <Navigate to="/" />
+      ),
+    },
+    {
+      path: "/dashboard/staff/*",
       element: authenticated ? (
         <DashboardLayout setAuthenticated={setAuthenticated} />
       ) : (
@@ -59,6 +60,7 @@ function App() {
   return (
     <div className="w-full">
       <RouterProvider router={router} />
+      <Toaster />
     </div>
   );
 }

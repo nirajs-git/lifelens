@@ -2,16 +2,40 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { TextInput, Button } from "@tremor/react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const apiKey = import.meta.env.VITE_API_URL;
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    try {
+      await axios.post(`${apiKey}/auth/signup`, data).then((res) => {
+        if (res.data.successful) {
+          toast.success("Registration Successful! Please login", {
+            position: "bottom-right",
+          });
+          navigate("/sign-in");
+        } else {
+          toast.error("Internal Server Error!", {
+            position: "bottom-right",
+          });
+        }
+      });
+    } catch (error) {
+      toast.error("Internal Server Error!", {
+        position: "bottom-right",
+      });
+    }
   };
 
   return (

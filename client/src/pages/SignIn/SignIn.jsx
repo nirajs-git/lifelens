@@ -1,17 +1,43 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { TextInput, Button } from "@tremor/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
 
-const SignIn = () => {
+const SignIn = ({setAuthenticated}) => {
+  const apiKey = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      await axios.post(`${apiKey}/auth/signin`, data).then((res) => {
+        if (res.data.token) {
+          const token = res.data.token;
+          localStorage.setItem("jwtToken", token);
+          setAuthenticated(true);
+          toast.success("Login Successful!", {
+            position: "bottom-right",
+          });
+          navigate("/dashboard");
+        } else {
+          toast.error("Internal Server Error!", {
+            position: "bottom-right",
+          });
+        }
+      });
+    } catch (error) {
+      toast.error("Internal Server Error!", {
+        position: "bottom-right",
+      });
+      console.log(error)
+    }
   };
 
   return (
@@ -37,8 +63,8 @@ const SignIn = () => {
                 required: "Email is required",
                 pattern: {
                   value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: "Invalid email address"
-                }
+                  message: "Invalid email address",
+                },
               })}
               error={errors.email && errors.email.message}
             />
@@ -50,7 +76,9 @@ const SignIn = () => {
               placeholder="Password"
               autoComplete="current-password"
               required
-              {...register("password", { required: "Password is required" })}
+              {...register("password", {
+                required: "Password is required",
+              })}
               error={errors.password && errors.password.message}
             />
           </div>
@@ -66,11 +94,20 @@ const SignIn = () => {
             </div>
           </div>
 
-          <Button type="submit" className="w-full mt-4 bg-green hover:bg-white border-green hover:border-green btn-transition hover:text-green">
+          <Button
+            type="submit"
+            className="w-full mt-4 bg-green hover:bg-white border-green hover:border-green btn-transition hover:text-green"
+          >
             Sign in
           </Button>
         </form>
-        <p className="text-sm font-mulish mt-8 w-full text-center text-slate-700">Don't have any account? <Link to={'/sign-up'} className="hover:text-green">Sign Up</Link>.</p>
+        <p className="text-sm font-mulish mt-8 w-full text-center text-slate-700">
+          Don't have an account?{" "}
+          <Link to={"/sign-up"} className="hover:text-green">
+            Sign Up
+          </Link>
+          .
+        </p>
       </div>
     </div>
   );

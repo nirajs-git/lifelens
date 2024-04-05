@@ -16,11 +16,15 @@ const DashboardLayout = ({ setAuthenticated }) => {
 
   const getUserDetails = async () => {
     const jwtToken = localStorage.getItem("jwtToken");
-    const data = { token: jwtToken };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    };
     await axios
-      .post(`${apiKey}/auth/get-user`, data)
+      .get(`${apiKey}/auth/get-user`, config)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.data) {
           setUser(res.data);
         }
       })
@@ -52,7 +56,7 @@ const DashboardLayout = ({ setAuthenticated }) => {
             <div className="flex p-2 rounded-lg cursor-pointer">
               <FaCircleUser className="text-3xl text-dark" />
               <span className="ml-4 text-dark font-mulish font-semibold">
-                Dr. {user && user.name && user.name.split(" ")[0]}
+                Dr. {user && user.fullName && user.fullName.split(" ")[0]}
               </span>
             </div>
           </div>
