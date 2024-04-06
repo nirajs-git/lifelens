@@ -27,3 +27,7 @@ tbody td {
 tbody tr:nth-child(even) {
   @apply bg-info;
 }
+
+#riskassess .tremor-dialog-panel{
+  @apply max-w-7xl max-h-[calc(100vh-30px)];
+}

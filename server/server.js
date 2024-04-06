@@ -4,6 +4,7 @@ const cors = require('cors'); // Import CORS middleware
 const app = express();
 const authRoutes = require('./routes/authRoutes');
 const patientRoutes = require('./routes/patientRoutes');
+const mailRoutes = require('./routes/mailRoutes');
 require('dotenv').config();
 
 // Middleware to parse JSON bodies
@@ -26,6 +27,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
 // Route for user-related endpoints
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/patient', patientRoutes);
+app.use('/api/v1/mail', mailRoutes);
 
 // Start server
 app.listen(PORT, () => {

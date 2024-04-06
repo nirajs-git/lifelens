@@ -3,6 +3,7 @@ import { FaChevronLeft, FaUserPen, FaRightFromBracket } from "react-icons/fa6";
 import Logo from "../../assets/img/logo/logo.svg";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { BiSolidDashboard } from "react-icons/bi";
+import { FaNotesMedical } from "react-icons/fa";
 
 const Sidebar = ({ setAuthenticated }) => {
   const [open, setOpen] = useState(true);
@@ -19,6 +20,11 @@ const Sidebar = ({ setAuthenticated }) => {
       title: "Manage Patients",
       icon: <FaUserPen className="w-10" />,
       path: "/dashboard/manage-patients",
+    },
+    {
+      title: "Risk Assessment",
+      icon: <FaNotesMedical className="w-10" />,
+      path: "/dashboard/risk-assessment",
     },
   ];
 

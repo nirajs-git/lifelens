@@ -6,6 +6,7 @@ import { FaCircleUser } from "react-icons/fa6";
 import axios from "axios";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import Patients from "../../components/Patients/Patients";
+import RiskAssessment from "../../components/RiskAssessment/RiskAssessment";
 
 const DashboardLayout = ({ setAuthenticated }) => {
   const apiKey = import.meta.env.VITE_API_URL;
@@ -52,6 +53,8 @@ const DashboardLayout = ({ setAuthenticated }) => {
                 ? "Dashboard"
                 : currentPath === "/dashboard/manage-patients"
                 ? "Manage Patients"
+                : currentPath === "/dashboard/risk-assessment"
+                ? "Risk Assessment"
                 : "LifeLens"}
             </div>
             <div className="flex p-2 rounded-lg cursor-pointer">
@@ -69,6 +72,7 @@ const DashboardLayout = ({ setAuthenticated }) => {
           <Routes>
             <Route path="" element={<Dashboard />} />
             <Route path="/manage-patients" element={<Patients />} />
+            <Route path="/risk-assessment" element={<RiskAssessment />} />
           </Routes>
         </div>
       </div>
