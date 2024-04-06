@@ -64,7 +64,7 @@ const DashboardLayout = ({ setAuthenticated }) => {
         </div>
         <div
           id="dash-main"
-          className="p-7 flex-1 max-h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden"
+          className="p-7 flex-1 bg-slate-50 max-h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden"
         >
           <Routes>
             <Route path="" element={<Dashboard />} />

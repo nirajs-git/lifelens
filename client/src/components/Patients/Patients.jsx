@@ -170,6 +170,8 @@ const Patients = () => {
         </div>
         <div className="flex gap-4">
           <button
+            disabled={displayedData.length === 0 ? false : true}
+            title={displayedData.length === 0 ? "" : "Data is already added! Cannot upload!"}
             onClick={() => {
               setUploadModalOpen(true);
             }}

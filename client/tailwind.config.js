@@ -20,6 +20,8 @@ export default {
         about: "7fr 5fr",
 
         contact: "6fr 6fr",
+
+        dashboard: '8fr 4fr',
       },
 
       fontFamily: {

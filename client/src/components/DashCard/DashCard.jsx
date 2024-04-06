@@ -3,12 +3,12 @@ import React from "react";
 
 const DashCard = ({ title, icon, color, count, tooltip }) => {
   return (
-    <Card className="max-w-fit">
-      <Flex className="space-x-6">
+    <Card className="w-[15rem]">
+      <Flex className="justify-around">
         <Icon
           icon={icon}
           color={color}
-          className={`text-${color}`}
+          className={`text-${color}` || 'text-success'}
           variant="solid"
           tooltip={tooltip}
           size="lg"
