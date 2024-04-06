@@ -106,34 +106,6 @@ const patientSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  smokingStatus: {
-    type: String,
-    required: true
-  },
-  diabetesStatus: {
-    type: String,
-    required: true
-  },
-  heartDiseaseStatus: {
-    type: String,
-    required: true
-  },
-  familyHistoryOfHeartDisease: {
-    type: String,
-    required: true
-  },
-  familyHistoryOfDiabetes: {
-    type: String,
-    required: true
-  },
-  familyHistoryOfHypertension: {
-    type: String,
-    required: true
-  },
-  medicationUsage: {
-    type: String,
-    required: true
-  },
   // Blood Test Data
   hemoglobinLevel: {
     type: Number,

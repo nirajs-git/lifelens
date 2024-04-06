@@ -8,6 +8,7 @@ router.get('/get-all', authenticateToken, patientController.getAllPatients);
 router.post('/add', authenticateToken, patientController.addPatient);
 router.put('/update', authenticateToken, patientController.updatePatient);
 router.delete('/delete', authenticateToken, patientController.deletePatientByEmail);
+router.post('/upload', authenticateToken, patientController.uploadPatients);
 
 // Export the router
 module.exports = router;

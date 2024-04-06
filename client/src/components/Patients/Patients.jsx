@@ -15,6 +15,7 @@ import { formatDate } from "../../../src/helpers/DateFormatter.js";
 import AddPatientModal from "../../modals/Patient/AddPatientModal.jsx";
 import UpdatePatientModal from "../../modals/Patient/UpdatePatientModal.jsx";
 import DeletePatientModal from "../../modals/Patient/DeletePatientModal.jsx";
+import UploadModal from "../../modals/Patient/UploadModal.jsx";
 
 const Patients = () => {
   const apiKey = import.meta.env.VITE_API_URL;
@@ -22,6 +23,7 @@ const Patients = () => {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
 
   const [data, setData] = useState([]);
   const [patient, setPatient] = useState(null);
@@ -91,9 +93,15 @@ const Patients = () => {
     { label: "Heart Disease Status", key: "heartDiseaseStatus" },
     { label: "Exercise Frequency", key: "exerciseFrequency" },
     { label: "Alcohol Consumption", key: "alcoholConsumption" },
-    { label: "Family History Of Heart Disease", key: "familyHistoryOfHeartDisease" },
+    {
+      label: "Family History Of Heart Disease",
+      key: "familyHistoryOfHeartDisease",
+    },
     { label: "Family History Of Diabetes", key: "familyHistoryOfDiabetes" },
-    { label: "Family History Of Hypertension", key: "familyHistoryOfHypertension" },
+    {
+      label: "Family History Of Hypertension",
+      key: "familyHistoryOfHypertension",
+    },
     { label: "Dietary Habits", key: "dietaryHabits" },
     { label: "Stress Level", key: "stressLevel" },
     { label: "Sleep Duration", key: "sleepDuration" },
@@ -104,7 +112,10 @@ const Patients = () => {
     { label: "Platelet Count", key: "plateletCount" },
     { label: "Mean Corpuscular Volume", key: "meanCorpuscularVolume" },
     { label: "Mean Corpuscular Hemoglobin", key: "meanCorpuscularHemoglobin" },
-    { label: "Mean Corpuscular Hemoglobin Concentration", key: "meanCorpuscularHemoglobinConcentration" },
+    {
+      label: "Mean Corpuscular Hemoglobin Concentration",
+      key: "meanCorpuscularHemoglobinConcentration",
+    },
     { label: "Neutrophil Count", key: "neutrophilCount" },
     { label: "Lymphocyte Count", key: "lymphocyteCount" },
     { label: "Monocyte Count", key: "monocyteCount" },
@@ -157,19 +168,30 @@ const Patients = () => {
             Add Patient
           </button>
         </div>
-        <CSVLink
-          data={csvData}
-          headers={headers}
-          filename="lifelens_patients.csv"
-        >
+        <div className="flex gap-4">
           <button
-            onClick={() => exportData()}
-            className="flex items-center text-sm py-2 px-4 rounded-lg bg-green text-white border btn-transition bg-green-600 border-green-600 hover:bg-white hover:text-green"
+            onClick={() => {
+              setUploadModalOpen(true);
+            }}
+            className="flex items-center text-sm py-2 px-4 rounded-lg bg-yellow text-white border btn-transition border-yellow hover:text-yellow hover:bg-white"
           >
             <FaFileExport className="mr-2" />
-            Export to CSV
+            Upload
           </button>
-        </CSVLink>
+          <CSVLink
+            data={csvData}
+            headers={headers}
+            filename="lifelens_patients.csv"
+          >
+            <button
+              onClick={() => exportData()}
+              className="flex items-center text-sm py-2 px-4 rounded-lg bg-green text-white border btn-transition bg-green-600 border-green-600 hover:bg-white hover:text-green"
+            >
+              <FaFileExport className="mr-2" />
+              Export to CSV
+            </button>
+          </CSVLink>
+        </div>
       </div>
       <Card className="h-full">
         {displayedData.length !== 0 ? (
@@ -265,6 +287,13 @@ const Patients = () => {
           closeModal={() => setDeleteModalOpen(false)}
           fetchPatients={fetchPatients}
           patientData={patient}
+        />
+      )}
+      {uploadModalOpen && (
+        <UploadModal
+          isOpen={uploadModalOpen}
+          closeModal={() => setUploadModalOpen(false)}
+          fetchPatients={fetchPatients}
         />
       )}
     </div>
